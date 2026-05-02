@@ -1,0 +1,33 @@
+{
+  "title": "Trigger Webhook Workflow",
+  "description": "Example request and response for triggering a Relay.app workflow via webhook.",
+  "request": {
+    "method": "POST",
+    "url": "https://api.relay.app/v1/webhooks/wh_abc123def456",
+    "headers": {
+      "X-Relay-API-Key": "{api-key}",
+      "Content-Type": "application/json",
+      "relay-deduplication-key": "order-12345-processed"
+    },
+    "body": {
+      "orderId": "12345",
+      "customerEmail": "customer@example.com",
+      "orderTotal": 299.99,
+      "items": [
+        { "sku": "PROD-001", "quantity": 2, "price": 149.99 }
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "runId": "run_xyz789abc123",
+      "workflowId": "wf_order-processing",
+      "status": "running",
+      "deduplicated": false
+    }
+  }
+}

@@ -1,0 +1,110 @@
+extends: "spectral:oas"
+
+rules:
+  # Relay App uses /v1/ versioned paths
+  relay-app-versioned-paths:
+    description: All paths should be prefixed with /v1/ for API versioning.
+    message: "Path '{{property}}' should start with /v1/."
+    given: "$.paths"
+    severity: warn
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        match: "^/v1/.*"
+
+  # Webhook paths should include a webhookId parameter
+  relay-app-webhook-id-required:
+    description: Webhook paths should include a webhookId path parameter.
+    message: "Webhook path '{{property}}' should include {webhookId} path parameter."
+    given: "$.paths[?(@property =~ /webhook/)]"
+    severity: warn
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        match: ".*\\{webhookId\\}.*"
+
+  # All operations must have operationIds
+  relay-app-operation-ids:
+    description: All operations must have unique operationIds in camelCase.
+    message: "Operation at '{{path}}' is missing an operationId."
+    given: "$.paths[*][*]"
+    severity: error
+    then:
+      field: operationId
+      function: truthy
+
+  # OperationIds should be camelCase
+  relay-app-operation-id-camel-case:
+    description: OperationIds should use camelCase naming convention.
+    message: "OperationId '{{value}}' should use camelCase."
+    given: "$.paths[*][*].operationId"
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  # Summaries should use Title Case
+  relay-app-title-case-summaries:
+    description: Operation summaries should use Title Case.
+    message: "Summary '{{value}}' should use Title Case."
+    given: "$.paths[*][*].summary"
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z]*(\\s[A-Z][a-zA-Z]*)*$"
+
+  # All operations must have at least one tag
+  relay-app-operation-tags:
+    description: All operations should have at least one tag for grouping.
+    message: "Operation '{{path}}' is missing tags."
+    given: "$.paths[*][*]"
+    severity: error
+    then:
+      field: tags
+      function: truthy
+
+  # All responses should have descriptions
+  relay-app-response-descriptions:
+    description: All response objects should include a description.
+    message: "Response '{{path}}' is missing a description."
+    given: "$.paths[*][*].responses[*]"
+    severity: warn
+    then:
+      field: description
+      function: truthy
+
+  # Status fields should use enum values
+  relay-app-status-enum:
+    description: Status-related fields should use enum values for type safety.
+    message: "Schema property '{{path}}' named 'status' should define enum values."
+    given: "$.components.schemas[*].properties.status"
+    severity: info
+    then:
+      field: enum
+      function: truthy
+
+  # Webhook trigger responses should include runId
+  relay-app-webhook-response-run-id:
+    description: Webhook trigger responses should include a runId field for tracking.
+    message: "Webhook response schema should include a runId property."
+    given: "$.components.schemas.WebhookTriggerResponse.properties"
+    severity: warn
+    then:
+      field: runId
+      function: truthy
+
+  # Paths should use kebab-case
+  relay-app-kebab-case-paths:
+    description: Path segments should use kebab-case.
+    message: "Path '{{property}}' should use kebab-case segments."
+    given: "$.paths"
+    severity: warn
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        notMatch: "[A-Z_]"

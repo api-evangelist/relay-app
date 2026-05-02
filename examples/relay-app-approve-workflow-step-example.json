@@ -1,0 +1,30 @@
+{
+  "title": "Approve Human-in-the-Loop Workflow Step",
+  "description": "Example request for approving a paused human-in-the-loop step in a Relay.app workflow run.",
+  "request": {
+    "method": "POST",
+    "url": "https://api.relay.app/v1/runs/run_xyz789abc123/approve",
+    "headers": {
+      "X-Relay-API-Key": "{api-key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "comment": "Approved by legal team after reviewing contract terms.",
+      "inputs": {
+        "approvedAmount": 5000,
+        "approvalNote": "Standard contract - proceed with execution"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "runId": "run_xyz789abc123",
+      "status": "running",
+      "message": "Step approved successfully. Workflow resumed."
+    }
+  }
+}

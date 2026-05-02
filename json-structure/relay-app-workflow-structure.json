@@ -1,0 +1,49 @@
+{
+  "title": "Relay App Workflow API Structure",
+  "description": "Structural overview of the Relay.app automation platform entities and their relationships.",
+  "version": "1.0.0",
+  "entities": {
+    "Workflow": {
+      "description": "An automated workflow definition in Relay.app.",
+      "fields": {
+        "id": { "type": "string", "description": "Unique workflow identifier." },
+        "name": { "type": "string", "description": "Workflow name." },
+        "description": { "type": "string" },
+        "status": { "type": "enum", "values": ["active", "inactive", "draft"] },
+        "triggerType": { "type": "enum", "values": ["webhook", "scheduled", "manual", "app", "form", "table", "batch", "rss"] },
+        "createdAt": { "type": "datetime" },
+        "updatedAt": { "type": "datetime" }
+      },
+      "relations": {
+        "runs": { "type": "one-to-many", "entity": "WorkflowRun" }
+      }
+    },
+    "WorkflowRun": {
+      "description": "A single execution instance of a workflow.",
+      "fields": {
+        "id": { "type": "string", "description": "Unique run identifier." },
+        "workflowId": { "type": "string", "description": "ID of the parent workflow." },
+        "status": { "type": "enum", "values": ["running", "completed", "failed", "paused", "cancelled"] },
+        "startedAt": { "type": "datetime" },
+        "completedAt": { "type": "datetime", "nullable": true },
+        "error": { "type": "string", "nullable": true },
+        "inputData": { "type": "object", "description": "Payload data provided at trigger time." }
+      },
+      "relations": {
+        "workflow": { "type": "many-to-one", "entity": "Workflow" }
+      }
+    },
+    "WebhookTrigger": {
+      "description": "A webhook endpoint that triggers a workflow run when called.",
+      "fields": {
+        "webhookId": { "type": "string", "description": "Unique webhook URL identifier." },
+        "method": { "type": "enum", "values": ["GET", "POST"] },
+        "deduplicationKey": { "type": "string", "nullable": true, "description": "Key for preventing duplicate runs." },
+        "payload": { "type": "object", "description": "JSON data sent with the webhook request." }
+      },
+      "relations": {
+        "workflow": { "type": "many-to-one", "entity": "Workflow" }
+      }
+    }
+  }
+}

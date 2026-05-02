@@ -1,0 +1,79 @@
+title: Relay App Vocabulary
+description: Key terms and concepts used in the Relay.app workflow automation platform and its API.
+version: 1.0.0
+modified: '2026-05-02'
+terms:
+  - term: Workflow
+    definition: >-
+      An automated process defined in Relay.app consisting of a trigger, a sequence of
+      steps (actions), and optional human-in-the-loop checkpoints.
+
+  - term: Trigger
+    definition: >-
+      The event or condition that starts a workflow run. Types include webhook, scheduled,
+      manual, app event, form submission, table row update, batch, and RSS.
+
+  - term: Webhook
+    definition: >-
+      An HTTP endpoint unique to each workflow that, when called with a GET or POST
+      request, immediately starts a new workflow run.
+
+  - term: Run
+    definition: >-
+      A single execution instance of a workflow, tracking its status, timing, input
+      data, and output results.
+
+  - term: Human-in-the-Loop
+    definition: >-
+      A workflow pattern where execution pauses and waits for a human to review and
+      approve (or reject/modify) before continuing to the next step.
+
+  - term: Approval
+    definition: >-
+      The action of a human reviewer confirming that a paused workflow step should
+      proceed, optionally providing input data for subsequent steps.
+
+  - term: Step
+    definition: >-
+      An individual action within a workflow, such as sending an email, calling an API,
+      creating a record, or requesting human approval.
+
+  - term: Integration
+    definition: >-
+      A connected application that Relay.app can interact with via its pre-built app
+      connectors. Relay.app supports 200+ integrations.
+
+  - term: Deduplication Key
+    definition: >-
+      A unique identifier (relayDeduplicationKey) provided with a webhook trigger to
+      prevent the same workflow from being run multiple times for the same event.
+
+  - term: Custom HTTP Request
+    definition: >-
+      A workflow step that makes an arbitrary HTTP request to any external API,
+      with configurable method, headers, URL, and JSON payload.
+
+  - term: MCP Server
+    definition: >-
+      A Model Context Protocol server built in Relay.app that exposes workflow steps
+      as tools accessible to AI systems like Claude and ChatGPT.
+
+  - term: Table
+    definition: >-
+      A structured data store within Relay.app that workflows can read from and write
+      to, enabling persistent state across automation runs.
+
+  - term: Batch Trigger
+    definition: >-
+      A trigger type that starts multiple simultaneous workflow runs, each with
+      different input data, from a single batch request.
+
+  - term: Scheduled Trigger
+    definition: >-
+      A trigger that starts a workflow at specified times or intervals, such as
+      every 15 minutes, daily, or on specific weekdays.
+
+  - term: AI Action
+    definition: >-
+      A workflow step that calls an AI provider (OpenAI, Anthropic, Google Gemini,
+      etc.) to process data, generate content, or make decisions.

@@ -1,0 +1,203 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Relay App Workflow Automation"
+  description: >-
+    Unified workflow automation capability for Relay.app. Combines webhook-triggered
+    workflow execution, workflow management, run status monitoring, human-in-the-loop
+    approval workflows, and run cancellation into a single AI-ready interface.
+    Used by developers, operations teams, and AI agents to trigger and manage
+    automated workflows across 200+ integrated applications.
+  tags:
+    - Workflow Automation
+    - Webhooks
+    - Human in the Loop
+    - Integration
+    - Relay App
+    - AI Automation
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      RELAY_API_KEY: RELAY_API_KEY
+
+capability:
+  consumes:
+    - import: relay-app
+      location: ./shared/relay-app.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: workflow-automation-api
+      description: "Unified REST API for Relay.app workflow automation and management."
+      resources:
+        - path: /v1/webhooks/{webhookId}
+          name: webhook-triggers
+          description: "Webhook-based workflow triggering."
+          operations:
+            - method: POST
+              name: trigger-workflow
+              description: "Trigger a workflow run via webhook."
+              call: "relay-app.trigger-webhook-workflow"
+              with:
+                webhookId: "rest.webhookId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/workflows
+          name: workflows
+          description: "Workflow inventory management."
+          operations:
+            - method: GET
+              name: list-workflows
+              description: "List all available workflows."
+              call: "relay-app.list-workflows"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/workflows/{workflowId}
+          name: workflow
+          description: "Individual workflow management."
+          operations:
+            - method: GET
+              name: get-workflow
+              description: "Get details of a specific workflow."
+              call: "relay-app.get-workflow"
+              with:
+                workflowId: "rest.workflowId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/workflows/{workflowId}/runs
+          name: workflow-runs
+          description: "Workflow run history for a specific workflow."
+          operations:
+            - method: GET
+              name: list-workflow-runs
+              description: "List run instances for a workflow."
+              call: "relay-app.list-workflow-runs"
+              with:
+                workflowId: "rest.workflowId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/runs/{runId}
+          name: run
+          description: "Workflow run status and management."
+          operations:
+            - method: GET
+              name: get-run
+              description: "Get the status and details of a workflow run."
+              call: "relay-app.get-workflow-run"
+              with:
+                runId: "rest.runId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/runs/{runId}/cancel
+          name: cancel-run
+          description: "Cancel a workflow run."
+          operations:
+            - method: POST
+              name: cancel-run
+              description: "Cancel a running or paused workflow."
+              call: "relay-app.cancel-workflow-run"
+              with:
+                runId: "rest.runId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/runs/{runId}/approve
+          name: approve-run
+          description: "Human-in-the-loop approval for paused workflows."
+          operations:
+            - method: POST
+              name: approve-step
+              description: "Approve a paused workflow step."
+              call: "relay-app.approve-workflow-run-step"
+              with:
+                runId: "rest.runId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9080
+      namespace: workflow-automation-mcp
+      transport: http
+      description: "MCP server for AI-assisted workflow automation via Relay.app."
+      tools:
+        - name: trigger-relay-workflow
+          description: "Trigger a Relay.app workflow via webhook with optional JSON payload data."
+          hints:
+            readOnly: false
+          call: "relay-app.trigger-webhook-workflow"
+          with:
+            webhookId: "tools.webhookId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-relay-workflows
+          description: "List all available workflows in the Relay.app account."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "relay-app.list-workflows"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-relay-workflow
+          description: "Get configuration and status details of a specific Relay.app workflow."
+          hints:
+            readOnly: true
+          call: "relay-app.get-workflow"
+          with:
+            workflowId: "tools.workflowId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-workflow-runs
+          description: "List run history for a specific workflow, with optional status filtering."
+          hints:
+            readOnly: true
+          call: "relay-app.list-workflow-runs"
+          with:
+            workflowId: "tools.workflowId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-run-status
+          description: "Get the current status and details of a workflow run."
+          hints:
+            readOnly: true
+          call: "relay-app.get-workflow-run"
+          with:
+            runId: "tools.runId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: cancel-workflow-run
+          description: "Cancel a currently running or paused workflow run."
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "relay-app.cancel-workflow-run"
+          with:
+            runId: "tools.runId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: approve-workflow-step
+          description: "Approve a paused human-in-the-loop workflow step to continue execution."
+          hints:
+            readOnly: false
+          call: "relay-app.approve-workflow-run-step"
+          with:
+            runId: "tools.runId"
+          outputParameters:
+            - type: object
+              mapping: "$."

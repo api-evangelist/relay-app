@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/relay-app/main/json-schema/relay-app-workflow-schema.json",
+  "title": "Relay App Workflow",
+  "description": "A workflow definition in Relay.app, representing an automated process that can be triggered via webhooks, schedules, app events, or manual activation.",
+  "type": "object",
+  "required": ["id", "name", "status", "triggerType"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier of the workflow."
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the workflow.",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional description of the workflow."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the workflow.",
+      "enum": ["active", "inactive", "draft"]
+    },
+    "triggerType": {
+      "type": "string",
+      "description": "The type of trigger that starts this workflow.",
+      "enum": ["webhook", "scheduled", "manual", "app", "form", "table", "batch", "rss"]
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time the workflow was created."
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time the workflow was last updated."
+    }
+  }
+}

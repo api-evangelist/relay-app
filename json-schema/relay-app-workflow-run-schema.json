@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/relay-app/main/json-schema/relay-app-workflow-run-schema.json",
+  "title": "Relay App Workflow Run",
+  "description": "A workflow run instance in Relay.app, representing a single execution of a workflow including its status, timing, and input/output data.",
+  "type": "object",
+  "required": ["id", "workflowId", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier of the workflow run."
+    },
+    "workflowId": {
+      "type": "string",
+      "description": "The ID of the workflow being run."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the workflow run.",
+      "enum": ["running", "completed", "failed", "paused", "cancelled"]
+    },
+    "startedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time the run was started."
+    },
+    "completedAt": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Date and time the run was completed."
+    },
+    "error": {
+      "type": ["string", "null"],
+      "description": "Error message if the run failed."
+    },
+    "inputData": {
+      "type": "object",
+      "description": "Input data provided when the run was triggered.",
+      "additionalProperties": true
+    }
+  }
+}
