@@ -1,0 +1,13 @@
+{
+  "repo": "relay-app",
+  "feeds": [
+    {
+      "source": "https://www.relay.app/blog",
+      "feed_url": "https://relay.app/feed",
+      "saved": 10,
+      "title": "Relay.app Blog"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:34:44Z"
+}
