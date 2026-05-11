@@ -80,6 +80,8 @@ common:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/relay-app/refs/heads/main/capabilities/workflow-automation.yaml
 
+integrations:
+  - name: Leave a review
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
