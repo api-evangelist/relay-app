@@ -70,6 +70,8 @@ common:
   url: https://raw.githubusercontent.com/api-evangelist/relay-app/refs/heads/main/vocabulary/relay-app-vocabulary.yml
 - type: SpectralRules
   url: https://raw.githubusercontent.com/api-evangelist/relay-app/refs/heads/main/rules/relay-app-rules.yml
+- type: LLMsTxt
+  url: https://docs.relay.app/llms.txt
 integrations:
 - name: Leave a review
 maintainers:
