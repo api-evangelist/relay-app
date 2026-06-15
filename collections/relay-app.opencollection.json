@@ -1,0 +1,226 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Relay App Automation API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Relay-API-Key",
+      "value": "{{X-Relay-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Trigger Webhook Workflow via GET",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.relay.app/v1/webhooks/:webhookId",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the webhook-triggered workflow."
+              }
+            ]
+          },
+          "docs": "Triggers a workflow run via an HTTP GET request. Useful for simple integrations that do not support POST methods."
+        },
+        {
+          "info": {
+            "name": "Trigger Webhook Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.relay.app/v1/webhooks/:webhookId",
+            "headers": [
+              {
+                "name": "relay-deduplication-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the webhook-triggered workflow."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers a workflow run by sending an HTTP POST request to the workflow's unique webhook endpoint. The workflow is started immediately when a valid HTTP request is received. A relayDeduplicationKey can be provided to ensure each unique workflow is only triggered once per key."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Workflows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Workflows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.relay.app/v1/workflows",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all workflows in the account."
+        },
+        {
+          "info": {
+            "name": "Get Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.relay.app/v1/workflows/:workflowId",
+            "params": [
+              {
+                "name": "workflowId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow."
+              }
+            ]
+          },
+          "docs": "Retrieves details of a specific workflow by its ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Workflow Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.relay.app/v1/workflows/:workflowId/runs",
+            "params": [
+              {
+                "name": "workflowId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter runs by status."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of run instances for a specific workflow."
+        },
+        {
+          "info": {
+            "name": "Get Workflow Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.relay.app/v1/runs/:runId",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow run."
+              }
+            ]
+          },
+          "docs": "Retrieves the details and status of a specific workflow run."
+        },
+        {
+          "info": {
+            "name": "Cancel Workflow Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.relay.app/v1/runs/:runId/cancel",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow run."
+              }
+            ]
+          },
+          "docs": "Cancels a currently running or paused workflow run."
+        },
+        {
+          "info": {
+            "name": "Approve Workflow Run Step",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.relay.app/v1/runs/:runId/approve",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow run."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Approves a paused workflow run step that is waiting for human-in-the-loop approval before proceeding to the next step."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
