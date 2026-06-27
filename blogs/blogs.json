@@ -2,11 +2,11 @@
   "repo": "relay-app",
   "feeds": [
     {
-      "source": "https://www.relay.app/blog",
+      "source": "https://relay.app/feed",
       "feed_url": "https://relay.app/feed",
       "title": "",
-      "saved": 5,
-      "method": "discovered"
+      "saved": 0,
+      "method": "feed"
     },
     {
       "source": "https://www.relay.app/apps",
@@ -17,5 +17,5 @@
     }
   ],
   "post_count": 60,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T12:03:07Z"
 }
