@@ -51,6 +51,10 @@ apis:
         url: >-
           https://raw.githubusercontent.com/api-evangelist/relay-app/refs/heads/main/json-structure/relay-app-workflow-structure.json
 common:
+  - type: DomainSecurity
+    url: security/relay-app-domain-security.yml
+  - type: Authentication
+    url: authentication/relay-app-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/tryrelayapp
   - type: Website
