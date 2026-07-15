@@ -51,6 +51,8 @@ apis:
         url: >-
           https://raw.githubusercontent.com/api-evangelist/relay-app/refs/heads/main/json-structure/relay-app-workflow-structure.json
 common:
+  - type: AgenticAccess
+    url: agentic-access/relay-app-agentic-access.yml
   - type: DomainSecurity
     url: security/relay-app-domain-security.yml
   - type: Authentication
