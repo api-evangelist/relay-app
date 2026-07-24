@@ -1,0 +1,109 @@
+openapi: 3.1.0
+info:
+  title: Relay App Automation Runs Webhooks API
+  description: The Relay.app API enables programmatic interaction with the Relay workflow automation platform. Developers can trigger workflow runs via webhooks, make custom HTTP requests to external systems, and manage automation through scheduled and event-based triggers. The API supports JSON payloads, custom response codes, and deduplication for webhook-triggered workflows.
+  version: 1.0.0
+  contact:
+    url: https://docs.relay.app/
+  license:
+    name: Proprietary
+    url: https://www.relay.app/terms
+servers:
+- url: https://api.relay.app/v1
+  description: Relay App API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Webhooks
+  description: Webhook trigger endpoints for initiating workflow runs
+paths:
+  /webhooks/{webhookId}:
+    post:
+      operationId: triggerWebhookWorkflow
+      summary: Trigger Webhook Workflow
+      description: Triggers a workflow run by sending an HTTP POST request to the workflow's unique webhook endpoint. The workflow is started immediately when a valid HTTP request is received. A relayDeduplicationKey can be provided to ensure each unique workflow is only triggered once per key.
+      tags:
+      - Webhooks
+      parameters:
+      - name: webhookId
+        in: path
+        required: true
+        description: The unique identifier for the webhook-triggered workflow.
+        schema:
+          type: string
+      - name: relay-deduplication-key
+        in: header
+        required: false
+        description: A unique key to prevent duplicate workflow runs. If a run with this key has already been triggered, the new request will be deduplicated.
+        schema:
+          type: string
+      requestBody:
+        required: false
+        description: JSON payload data to pass into the workflow run.
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              description: Arbitrary JSON data to be used in the workflow.
+      responses:
+        '200':
+          description: Workflow run triggered successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookTriggerResponse'
+        '400':
+          description: Bad request - invalid payload.
+        '404':
+          description: Webhook not found.
+        '429':
+          description: Rate limit exceeded.
+    get:
+      operationId: triggerWebhookWorkflowGet
+      summary: Trigger Webhook Workflow via GET
+      description: Triggers a workflow run via an HTTP GET request. Useful for simple integrations that do not support POST methods.
+      tags:
+      - Webhooks
+      parameters:
+      - name: webhookId
+        in: path
+        required: true
+        description: The unique identifier for the webhook-triggered workflow.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Workflow run triggered successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookTriggerResponse'
+        '404':
+          description: Webhook not found.
+components:
+  schemas:
+    WebhookTriggerResponse:
+      type: object
+      properties:
+        runId:
+          type: string
+          description: The unique ID of the triggered workflow run.
+        workflowId:
+          type: string
+          description: The ID of the triggered workflow.
+        status:
+          type: string
+          description: Initial status of the triggered run.
+          enum:
+          - running
+          - queued
+        deduplicated:
+          type: boolean
+          description: Whether this request was deduplicated against a previous run.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Relay-API-Key
+      description: API key for authenticating requests to the Relay App API.
