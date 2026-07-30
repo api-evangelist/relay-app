@@ -6,7 +6,20 @@ description: >-
   human-in-the-loop approval workflows, and MCP server tooling for AI agent integration. Developer features include
   API-triggered workflows, custom JavaScript execution, and integration with OpenAI, Anthropic, and other AI providers.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/relay-app.png
 tags:
   - Automation
   - Workflow
@@ -19,37 +32,75 @@ created: '2026-03-16'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: relay-app:relay-app-api
-    name: Relay App Automation API
-    description: >-
-      The Relay.app API enables programmatic triggering of workflows via webhooks, custom HTTP requests to external
-      APIs, and scheduled automation runs. Developers can use webhook endpoints to trigger workflow runs, pass JSON
-      payloads, configure deduplication, and receive custom response codes. The API supports GET and POST HTTP methods
-      with configurable headers and payloads.
-    humanURL: https://docs.relay.app/
-    baseURL: https://api.relay.app
-    tags:
-      - Webhook
-      - Automation
-      - Workflow Triggers
-      - HTTP
-      - Integration
-    properties:
-      - type: Documentation
-        url: https://docs.relay.app/
-      - type: Webhook Documentation
-        url: https://docs.relay.app/triggers/webhook-trigger
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/relay-app/refs/heads/main/openapi/relay-app-openapi.yml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/relay-app/refs/heads/main/json-schema/relay-app-workflow-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/relay-app/refs/heads/main/json-schema/relay-app-workflow-run-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/relay-app/refs/heads/main/json-structure/relay-app-workflow-structure.json
+- aid: relay-app:relay-app-runs-api
+  name: Relay App Runs API
+  description: Operations for managing and inspecting workflow run instances
+  humanURL: https://docs.relay.app/
+  baseURL: https://api.relay.app
+  tags:
+  - Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/relay-app-runs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.relay.app/
+  - type: Webhook Documentation
+    url: https://docs.relay.app/triggers/webhook-trigger
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/relay-app/refs/heads/main/json-schema/relay-app-workflow-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/relay-app/refs/heads/main/json-schema/relay-app-workflow-run-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/relay-app/refs/heads/main/json-structure/relay-app-workflow-structure.json
+- aid: relay-app:relay-app-webhooks-api
+  name: Relay App Webhooks API
+  description: Webhook trigger endpoints for initiating workflow runs
+  humanURL: https://docs.relay.app/
+  baseURL: https://api.relay.app
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/relay-app-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.relay.app/
+  - type: Webhook Documentation
+    url: https://docs.relay.app/triggers/webhook-trigger
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/relay-app/refs/heads/main/json-schema/relay-app-workflow-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/relay-app/refs/heads/main/json-schema/relay-app-workflow-run-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/relay-app/refs/heads/main/json-structure/relay-app-workflow-structure.json
+- aid: relay-app:relay-app-workflows-api
+  name: Relay App Workflows API
+  description: Operations for managing and triggering workflow runs
+  humanURL: https://docs.relay.app/
+  baseURL: https://api.relay.app
+  tags:
+  - Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/relay-app-workflows-api-openapi.yml
+  - type: Documentation
+    url: https://docs.relay.app/
+  - type: Webhook Documentation
+    url: https://docs.relay.app/triggers/webhook-trigger
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/relay-app/refs/heads/main/json-schema/relay-app-workflow-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/relay-app/refs/heads/main/json-schema/relay-app-workflow-run-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/relay-app/refs/heads/main/json-structure/relay-app-workflow-structure.json
 common:
   - type: AgenticAccess
     url: agentic-access/relay-app-agentic-access.yml
