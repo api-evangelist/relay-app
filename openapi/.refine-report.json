@@ -1,0 +1,18 @@
+{
+  "provider": "relay-app",
+  "sources": [
+    "relay-app-runs-api-openapi.yml",
+    "relay-app-webhooks-api-openapi.yml",
+    "relay-app-workflows-api-openapi.yml"
+  ],
+  "outputs": [
+    "relay-app-runs-api-openapi.yml",
+    "relay-app-webhooks-api-openapi.yml",
+    "relay-app-workflows-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
