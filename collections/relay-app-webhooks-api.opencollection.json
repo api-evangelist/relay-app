@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Relay App Automation Runs Webhooks API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Relay-API-Key",
+      "value": "{{X-Relay-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Trigger Webhook Workflow via GET",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.relay.app/v1/webhooks/:webhookId",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the webhook-triggered workflow."
+              }
+            ]
+          },
+          "docs": "Triggers a workflow run via an HTTP GET request. Useful for simple integrations that do not support POST methods."
+        },
+        {
+          "info": {
+            "name": "Trigger Webhook Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.relay.app/v1/webhooks/:webhookId",
+            "headers": [
+              {
+                "name": "relay-deduplication-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the webhook-triggered workflow."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers a workflow run by sending an HTTP POST request to the workflow's unique webhook endpoint. The workflow is started immediately when a valid HTTP request is received. A relayDeduplicationKey can be provided to ensure each unique workflow is only triggered once per key."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

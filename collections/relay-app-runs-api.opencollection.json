@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Relay App Automation Runs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Relay-API-Key",
+      "value": "{{X-Relay-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Workflow Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.relay.app/v1/workflows/:workflowId/runs",
+            "params": [
+              {
+                "name": "workflowId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter runs by status."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of run instances for a specific workflow."
+        },
+        {
+          "info": {
+            "name": "Get Workflow Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.relay.app/v1/runs/:runId",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow run."
+              }
+            ]
+          },
+          "docs": "Retrieves the details and status of a specific workflow run."
+        },
+        {
+          "info": {
+            "name": "Cancel Workflow Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.relay.app/v1/runs/:runId/cancel",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow run."
+              }
+            ]
+          },
+          "docs": "Cancels a currently running or paused workflow run."
+        },
+        {
+          "info": {
+            "name": "Approve Workflow Run Step",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.relay.app/v1/runs/:runId/approve",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow run."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Approves a paused workflow run step that is waiting for human-in-the-loop approval before proceeding to the next step."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
