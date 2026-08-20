@@ -22,6 +22,13 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/relay-app.png
 tags:
   - Automation
+  - Workflows
+  - Integration
+  - No-Code
+  - Artificial Intelligence
+  - Webhook
+tags_raw:
+  - Automation
   - Workflow
   - Integration
   - No-Code
@@ -61,6 +68,8 @@ apis:
   humanURL: https://docs.relay.app/
   baseURL: https://api.relay.app
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
