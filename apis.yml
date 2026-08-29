@@ -6,6 +6,17 @@ description: >-
   human-in-the-loop approval workflows, and MCP server tooling for AI agent integration. Developer features include
   API-triggered workflows, custom JavaScript execution, and integration with OpenAI, Anthropic, and other AI providers.
 type: Index
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
