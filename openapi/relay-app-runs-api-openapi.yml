@@ -138,15 +138,6 @@ paths:
           description: Run not found.
 components:
   schemas:
-    WorkflowRunList:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkflowRun'
-        totalCount:
-          type: integer
     WorkflowRun:
       type: object
       properties:
@@ -180,6 +171,15 @@ components:
           type: object
           additionalProperties: true
           description: Input data provided when the run was triggered.
+    WorkflowRunList:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowRun'
+        totalCount:
+          type: integer
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
