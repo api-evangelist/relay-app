@@ -1,3 +1,24 @@
+generated: '2026-10-20'
+method: searched
+source:
+- zoom/integrations/zoom-integration-edges.yml
+- https://zapier.com/apps/relay-app/integrations
+- https://zapier.com/apps/relay/integrations
+- https://n8n.io/integrations/relay-app/
+- https://n8n.io/integrations/relay/
+- https://composio.dev/toolkits/relay-app
+- https://monid.ai/tools/relay-app
+checked:
+- zendesk/integrations/zendesk-integration-edges.yml
+- zoom/integrations/zoom-integration-edges.yml
+- https://composio.dev/toolkits/relay-app
+- https://monid.ai/tools/relay-app
+- https://n8n.io/integrations/relay-app/
+- https://n8n.io/integrations/relay/
+- https://zapier.com/apps/relay-app/integrations
+- https://zapier.com/apps/relay/integrations
+summary: null
+marketplace_apps: []
 edges:
 - partner_name: Zendesk (own)
   partner: zendesk
@@ -33,10 +54,4 @@ edges:
   detected: '2026-10-18'
   detected_by: mirror-platform-listings.py
   category: Zoom app
-generated: '2026-10-18'
-method: searched
-source:
-- zoom/integrations/zoom-integration-edges.yml
-checked:
-- zendesk/integrations/zendesk-integration-edges.yml
-- zoom/integrations/zoom-integration-edges.yml
+templates: []
